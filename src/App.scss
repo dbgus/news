@@ -1,4 +1,4 @@
-$bg: red
+$bg: red;
 
 .App {
   text-align: center;
@@ -11,7 +11,7 @@ $bg: red
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: $bg;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@ $bg: red
 }
 
 .App-link {
-  color: #61dafb;
+  color: $bg;
 }
 
 @keyframes App-logo-spin {
