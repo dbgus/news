@@ -3,29 +3,41 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+    button: {
+        marginTop: 70,
+    },
+    initLable: {
+        fontSize: 23
+    },
+    initForm: {
+        width: 170,
+    }
+});
 
 
-function Init({ value, InitHandleChange }) {
+function Init({ value, Change, submit, classes }) {
 
     return (
-        <form>
-            <FormControl className="IntiForm">
-                <InputLabel>your country</InputLabel>
+        <form className="InitBox" onSubmit={submit} >
+            <h2 className="Welcome">welcome to news pages</h2>
+            <FormControl className={classes.initForm}>
+                <InputLabel className={classes.initLable} >your country</InputLabel>
                 <Select
-                    onChange={InitHandleChange}
+                    onChange={Change}
                     value={value}
                 >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
                     <MenuItem value={'kr'}>korea</MenuItem>
                     <MenuItem value={'gb'}>UK</MenuItem>
                     <MenuItem value={"us"}>US</MenuItem>
-
                 </Select>
+                <Button type="submit" color="primary" variant="contained" className={classes.button}>설정</Button>
             </FormControl>
         </form>
     )
 }
 
-export default Init
+export default withStyles(styles)(Init)

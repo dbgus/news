@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { CountryCheckAscny } from "../store/modules/Init";
+
+
+import News from './newsContainer'
 import Init from '../components/Init'
 
 export class AppContainer extends Component {
@@ -8,25 +14,50 @@ export class AppContainer extends Component {
             InitValue: ""
         }
     }
+    componentWillMount() {
+        this.props.CountryCheckAscny();
+    }
 
     InitHandleChange = (el) => {
         const value = el.target.value;
         this.setState({
             InitValue: value
         })
-        console.log(value)
     }
+
+    InitHandleSubmit = (e) => {
+        localStorage.setItem('country', this.state.InitValue);
+    }
+
     render() {
         const { InitValue } = this.state
+        const { country } = this.props
         return (
             <div>
-                <Init
-                    value={InitValue}
-                    InitHandleChange={this.InitHandleChange}
-                />
+                {
+                    country ?
+                        <News />
+                        :
+                        <Init
+                            value={InitValue}
+                            Change={this.InitHandleChange}
+                            submit={this.InitHandleSubmit}
+                        />
+                }
             </div>
         )
     }
 }
+const mapStateToProps = (state) => ({
+    country: state.init.country,
+})
 
-export default AppContainer
+const mapDispatchToProps = {
+    CountryCheckAscny: () => CountryCheckAscny()
+}
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AppContainer)
