@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { NewsRequest } from "../store/modules/news";
+import { CountryCheckAscny } from "../store/modules/Init";
 
 import NewsCard from '../components/NewsCard'
 
@@ -11,7 +12,7 @@ export class newsContainer extends Component {
 
     state = {
         open: false,
-        coin: false
+        coin: false,
     };
 
     componentWillMount() {
@@ -30,13 +31,14 @@ export class newsContainer extends Component {
     handelCoinChange = (e) => {
         const { country, NewsRequest } = this.props
         const { coin } = this.state
-        console.log(coin)
         NewsRequest(country, !coin)
-
         this.setState({ coin: !coin })
-
     }
 
+    CountryChoice = () => {
+        localStorage.removeItem('country')
+        this.props.CountryCheckAscny()
+    }
 
 
     render() {
@@ -44,17 +46,18 @@ export class newsContainer extends Component {
         const { coin, open } = this.state
         return (
             <div>
+
                 <NewsCard
                     data={news}
                     open={open}
                     DrawerOp={this.handleDrawerOpen}
                     DrawerCl={this.handleDrawerClose}
                     CoinChange={this.handelCoinChange}
+                    CountryChoice={this.CountryChoice}
                     coin={coin}
                     category={category}
                     loading={loading}
                 />
-
             </div>
         )
     }
@@ -68,7 +71,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    NewsRequest: (country, coin) => NewsRequest(country, coin)
+    NewsRequest: (country, coin, category) => NewsRequest(country, coin, category),
+    CountryCheckAscny: () => CountryCheckAscny()
 }
 
 

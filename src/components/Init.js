@@ -30,9 +30,9 @@ function Init({ value, Change, submit, classes }) {
                     onChange={Change}
                     value={value}
                 >
-                    <MenuItem value={'kr'}>??</MenuItem>
-                    <MenuItem value={'gb'}>??</MenuItem>
-                    <MenuItem value={"us"}>??</MenuItem>
+                    <MenuItem value={'kr'}>korea</MenuItem>
+                    <MenuItem value={'gb'}>United Kingdom</MenuItem>
+                    <MenuItem value={"us"}>United States</MenuItem>
                 </Select>
                 <Button type="submit" color="primary" variant="contained" className={classes.button}>설정</Button>
             </FormControl>

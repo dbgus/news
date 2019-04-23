@@ -89,7 +89,7 @@ const styles = theme => ({
 
 });
 
-function NewsCard({ loading, data, open, DrawerOp, DrawerCl, classes, theme, CoinChange, coin, category }) {
+function NewsCard({ loading, data, CountryChoice, open, DrawerOp, DrawerCl, classes, theme, CoinChange, coin, category }) {
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -130,7 +130,7 @@ function NewsCard({ loading, data, open, DrawerOp, DrawerCl, classes, theme, Coi
                 <Divider />
                 <Divider />
 
-                <ListItem className={classes.iconBox} button key="country" >
+                <ListItem onClick={CountryChoice} className={classes.iconBox} button key="country" >
                     <ListItemIcon>
                         <Flag />
                     </ListItemIcon>
