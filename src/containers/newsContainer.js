@@ -12,11 +12,13 @@ export class newsContainer extends Component {
 
     state = {
         open: false,
+        ctaOpen: false,
         coin: false,
+        category: ''
     };
 
     componentWillMount() {
-        const { country, NewsRequest, category } = this.props;
+        const { country, NewsRequest } = this.props;
         NewsRequest(country);
     }
 
@@ -28,11 +30,37 @@ export class newsContainer extends Component {
         this.setState({ open: false });
     };
 
+    handleCatChange = event => {
+        const value = event.target.value
+        const { coin } = this.state
+        const { NewsRequest, country } = this.props
+        this.setState({
+            [event.target.name]: value,
+            coin: false
+        });
+        if (value && !coin) {
+            NewsRequest(country, coin, value)
+        }
+        else if (coin) {
+            NewsRequest(country, !coin, value)
+        }
+    };
+
+    handleCatOpen = () => {
+        this.setState({ ctaOpen: true })
+    }
+    handleCatClose = () => {
+        this.setState({ ctaOpen: false })
+    }
+
     handelCoinChange = (e) => {
         const { country, NewsRequest } = this.props
         const { coin } = this.state
         NewsRequest(country, !coin)
-        this.setState({ coin: !coin })
+        this.setState({
+            coin: !coin,
+            category: ''
+        })
     }
 
     CountryChoice = () => {
@@ -42,8 +70,9 @@ export class newsContainer extends Component {
 
 
     render() {
-        const { loading, news, category } = this.props
-        const { coin, open } = this.state
+        const { loading, news, } = this.props
+        const { coin, open, category, ctaOpen } = this.state
+        console.log(category)
         return (
             <div>
 
@@ -52,6 +81,10 @@ export class newsContainer extends Component {
                     open={open}
                     DrawerOp={this.handleDrawerOpen}
                     DrawerCl={this.handleDrawerClose}
+                    CatOp={this.handleCatOpen}
+                    CatCl={this.handleCatClose}
+                    CtaChange={this.handleCatChange}
+                    ctaOpen={ctaOpen}
                     CoinChange={this.handelCoinChange}
                     CountryChoice={this.CountryChoice}
                     coin={coin}
@@ -66,8 +99,7 @@ export class newsContainer extends Component {
 const mapStateToProps = (state) => ({
     country: state.init.country,
     news: state.news.news,
-    loading: state.news.loading,
-    category: state.news.category
+    loading: state.news.loading
 })
 
 const mapDispatchToProps = {

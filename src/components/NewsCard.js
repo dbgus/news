@@ -9,11 +9,14 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Switch from '@material-ui/core/Switch';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from "@material-ui/core/FormControl";
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AttachMoney from '@material-ui/icons/AttachMoney';
-import App from '@material-ui/icons/Apps'
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -84,12 +87,21 @@ const styles = theme => ({
 
     iconBox: {
         padding: 15
-    }
-
-
+    },
+    button: {
+        display: 'block',
+        marginTop: theme.spacing.unit * 2,
+    },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
+    },
 });
 
-function NewsCard({ loading, data, CountryChoice, open, DrawerOp, DrawerCl, classes, theme, CoinChange, coin, category }) {
+
+
+
+function NewsCard({ loading, data, CountryChoice, CatOp, CatCl, CtaChange, catOpen, open, DrawerOp, DrawerCl, classes, theme, CoinChange, coin, category }) {
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -136,12 +148,38 @@ function NewsCard({ loading, data, CountryChoice, open, DrawerOp, DrawerCl, clas
                     </ListItemIcon>
                     <ListItemText primary="국가 설정" />
                 </ListItem>
-                <ListItem className={classes.iconBox} button key="category">
-                    <ListItemIcon>
-                        <App />
-                    </ListItemIcon>
-                    <ListItemText primary="기사 카테고리" />
-                </ListItem>
+
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="demo-controlled-open-select">기사 카테고리</InputLabel>
+                    <Select
+                        open={catOpen}
+                        onClose={CatCl}
+                        onOpen={CatOp}
+                        value={category}
+                        onChange={CtaChange}
+                        inputProps={{
+                            name: 'category',
+                            id: 'demo-controlled-open-select',
+                        }}
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value="business">business</MenuItem>
+                        <MenuItem value="entertainment">entertainment</MenuItem>
+                        <MenuItem value="general">general</MenuItem>
+                        <MenuItem value="health">health</MenuItem>
+                        <MenuItem value="science">science</MenuItem>
+                        <MenuItem value="sports">sports</MenuItem>
+                        <MenuItem value="technology">technology</MenuItem>
+
+                    </Select>
+                </FormControl>
+
+
+
+
+
                 <Divider />
                 <Divider />
                 <ListItem key="coin">

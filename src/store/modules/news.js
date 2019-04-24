@@ -36,7 +36,6 @@ export default (state = initialState, action) => {
 
 export const NewsRequest = (country, coin, category) => dispatch => {
     dispatch(news())
-    
     Axios.get(`https://newsapi.org/v2/top-headlines?${coin ? "" : `country=${country}&`}${coin ? "q=bitcoin&" : ""}${category ? `category=${category}&` : ""}apiKey=${process.env.REACT_APP_API_KEY}`)
         .then(res => {
             dispatch(newsSuccess(res.data.articles))
