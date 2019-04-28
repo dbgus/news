@@ -6,8 +6,6 @@ import { CountryCheckAscny } from "../store/modules/Init";
 
 import NewsCard from '../components/NewsCard'
 
-
-
 export class newsContainer extends Component {
 
     state = {
@@ -72,7 +70,6 @@ export class newsContainer extends Component {
     render() {
         const { loading, news, } = this.props
         const { coin, open, category, ctaOpen } = this.state
-        console.log(category)
         return (
             <div>
 
